@@ -7,7 +7,7 @@ addons:
 services:
 - docker
 script:
-- docker pull vmnet8/turtleblocksjs 
+- docker run --rm --privileged multiarch/qemu-user-static:register --reset 
 env:
   global:
   # DOCKER CREDS
