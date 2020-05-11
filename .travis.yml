@@ -6,8 +6,10 @@ addons:
     - docker-ce
 services:
 - docker
-script:
-- docker run --rm --privileged multiarch/qemu-user-static:register --reset 
+befobefore_install:
+  - sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - sudo docker manifest create  vmnet8/turtleblocksjs:nginx  treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
+  - sudo docker manifest push vmnet8/turtleblocksjs:nginx
 env:
   global:
   # DOCKER CREDS
