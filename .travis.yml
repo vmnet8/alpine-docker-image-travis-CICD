@@ -7,6 +7,7 @@ addons:
 services:
 - docker
 before_install:
+script:
 #  - sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
 #  - sudo docker build -t vmnet8/turtlblocksjs:nginx-rpi /turtleblocksjs/.
 - docker pull treehouses/turtleblocksjs-tags:nginx-x86 
