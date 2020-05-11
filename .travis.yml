@@ -6,16 +6,14 @@ addons:
     - docker-ce
 services:
 - docker
-before_install:
+before_install: 
 script:
-#  - sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
-#  - sudo docker build -t vmnet8/turtlblocksjs:nginx-rpi /turtleblocksjs/.
-- docker pull treehouses/turtleblocksjs-tags:nginx-x86 
+- docker pull treehouses/turtleblocksjs-tags:nginx-x86
 - docker pull treehouses/turtleblocksjs-tags:nginx-rpi
 - export DOCKER_CLI_EXPERIMENTAL=enabled
-- docker manifest create  vmnet8/turtleblocksjs:nginx  treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
-  #- docker manifest push vmnet8/turtleblocksjs:nginx
+- docker manifest create  vmnet8/turtleblocksjs:nginx  treehouses/turtleblocksjs-tags:nginx-x86
+  treehouses/turtleblocksjs-tags:nginx-rpi
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 env:
   global:
-  # DOCKER CREDS
-  - secure: q/369BFJEMBPl5IEsHou4vnRIs+9Q9gWRjMPa9GMLpidlP73iOoBlr83Gsjr1bdjaELSSEMx8w3gkzm9wcIxz0UDIxWRs+bWAHjXeF1Qt1KFPAsqhE0I4Nj8LAbBTk7rcmCHzOj1ciyNuEIKYm7pkJWr2BEAu+gAzZwQryPuOZlq0dar2Ihfgn5Y7Ef/wnpDyQWkzTfDzqtx6WrcsFhfyd0lfNvsqo9lkizX1hV4G9/9e9XDwgSlBTrOQYtRn4AtGnwwfVIcJR97MCizGEYCVnhCGmEwX2hku1bJpamQSXK4Jie4FKGQLXaLFAaqOH9wd9ZM8c52ZFokNBV8IuWWaq6qkqiYD1cs0XMJxv2nBx9VCxQwx7nvGpxehLskp3xyUj0ShORyiCbnpYOUtnBDbkUh95OLXmq5Rb7FZP4tBq3uWB3lKmng3qc4841A9AryqVd3j/IuEFWtccmSPHjQAQr4lUUaWFEqWtWCjl7kU4GCmGGffgzkZGy+QuBloZ2ENTPpy5GEoTDTcxivIqKBbz/gXDuk1QTz6xpSOeLNGbNyqjgsfZQNRN2TzC8i6VZkPDSyD8O3creCT4/Ewz4kmNuz7aulDO1H6cm13RQwJMQbnZohw5TGYIgBuFd+2sYzjcHJV+7gulUUbBTNcPJLXyamvj16T3Krieo5p9NZVYs=
+  - secure: R+mSAK87xrYZCtiPbtu2WyiKV900lTnIErn2QtQz2DDz6ed0+dROeQ+yjANiaRgUsclAEsK2cq6E+3IkjOTukZchmth1H4J5MIkRu5a6zb8ZwxBPvjJgcLHYMBiMLp6u8FyyKNPYM86Qc7H/jCc4F0bb/unZGikiHwzdyEMd0wxXs5g/DnUtQanqKKw20yhM8HpzdyYNhR1fx7jwvCuRspmRovTjSqP/zm0S9/RzAl9BpjaI4s9MLX2fSMzELtnZ0nGo1AL6Qc0lFKhaMNdAQ/mhyjgj083cq7PAp4xYZg4QClXoCOAEgaKzb9mkiAE741+5LV79a1dHyxo3z5/Qry/ZlUrOIJ8IIZ8nU3h6zA9A0nJbYW2u1/2dLlf2pIphM+TUE3MTuE5hvEZd4mTLl7Cf9NDKVA3aI4v6zGD57AjM+Zi3+lGU85cOGBQO8kYjR1VRfVQX1OKQKbpCKj+h5d86xEdWlshY4cZb0MK1Xy1zJgTwqX6AEOQJ3N8J3c4DBYNTN4pP9rdaN7h/q+47kldsdYJlSK72IqedVPOloGpzBo3n67BlIkSYG47UMJgzDxgPjK/lzosMWLjBFGUxgkPXswPulFWEWR0+qK5663k/6Wv3/mke4X7hWtXMM9zH0xFvqxSr8fakMiRySml14pgbEKsz4vDF2C7XaALBJjc=
