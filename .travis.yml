@@ -7,10 +7,12 @@ addons:
 services:
 - docker
 before_install:
-  - sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - sudo docker build -t vmnet8/turtlblocksjs:nginx-rpi /turtleblocksjs/.
-  - sudo docker manifest create  vmnet8/turtleblocksjs:nginx  treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
-  - sudo docker manifest push vmnet8/turtleblocksjs:nginx
+#  - sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
+#  - sudo docker build -t vmnet8/turtlblocksjs:nginx-rpi /turtleblocksjs/.
+- docker pull treehouses/turtlblocksjs-tags:nginx-x86 
+- docker pull treehouses/turtlblocksjs-tags:nginx-rpi
+- docker manifest create  vmnet8/turtleblocksjs:nginx  treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
+  #- docker manifest push vmnet8/turtleblocksjs:nginx
 env:
   global:
   # DOCKER CREDS
