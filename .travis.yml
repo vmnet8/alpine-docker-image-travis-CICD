@@ -1,0 +1,26 @@
+sudo: required
+addons:
+  apt:
+    update: true
+    packages:
+    - docker-ce
+services:
+- docker
+before_install:
+script:
+#- docker pull treehouses/turtleblocksjs-tags
+#- docker pull treehouses/turtleblocksjs-tags:nginx-x86
+#- docker pull treehouses/turtleblocksjs-tags:nginx-rpi
+- export DOCKER_CLI_EXPERIMENTAL=enabled
+- docker manifest create vmnet8/turtleblocksjs:annarocks3 treehouses/turtleblocksjs-tags:nginx-x86
+  treehouses/turtleblocksjs-tags:nginx-rpi
+deploy:
+- provider: script
+- script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker manifest push vmnet8/turtleblocksjs:annarocks3
+  - on:
+      branch: upload-image
+env:
+  global:
+  - secure: R+mSAK87xrYZCtiPbtu2WyiKV900lTnIErn2QtQz2DDz6ed0+dROeQ+yjANiaRgUsclAEsK2cq6E+3IkjOTukZchmth1H4J5MIkRu5a6zb8ZwxBPvjJgcLHYMBiMLp6u8FyyKNPYM86Qc7H/jCc4F0bb/unZGikiHwzdyEMd0wxXs5g/DnUtQanqKKw20yhM8HpzdyYNhR1fx7jwvCuRspmRovTjSqP/zm0S9/RzAl9BpjaI4s9MLX2fSMzELtnZ0nGo1AL6Qc0lFKhaMNdAQ/mhyjgj083cq7PAp4xYZg4QClXoCOAEgaKzb9mkiAE741+5LV79a1dHyxo3z5/Qry/ZlUrOIJ8IIZ8nU3h6zA9A0nJbYW2u1/2dLlf2pIphM+TUE3MTuE5hvEZd4mTLl7Cf9NDKVA3aI4v6zGD57AjM+Zi3+lGU85cOGBQO8kYjR1VRfVQX1OKQKbpCKj+h5d86xEdWlshY4cZb0MK1Xy1zJgTwqX6AEOQJ3N8J3c4DBYNTN4pP9rdaN7h/q+47kldsdYJlSK72IqedVPOloGpzBo3n67BlIkSYG47UMJgzDxgPjK/lzosMWLjBFGUxgkPXswPulFWEWR0+qK5663k/6Wv3/mke4X7hWtXMM9zH0xFvqxSr8fakMiRySml14pgbEKsz4vDF2C7XaALBJjc=
