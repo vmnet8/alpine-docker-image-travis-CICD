@@ -1,2 +1,2 @@
 #!/bin/bash
-docker manifest push vmnet8/turtleblocksjs:annarocks3
+docker manifest push vmnet8/turtleblocksjs:annarocks5

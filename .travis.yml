@@ -12,7 +12,7 @@ script:
 #- docker pull treehouses/turtleblocksjs-tags:nginx-x86
 #- docker pull treehouses/turtleblocksjs-tags:nginx-rpi
 - export DOCKER_CLI_EXPERIMENTAL=enabled
-- docker manifest create vmnet8/turtleblocksjs:annarocks4 treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
+- docker manifest create vmnet8/turtleblocksjs:annarocks5 treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 deploy:
 - provider: script
