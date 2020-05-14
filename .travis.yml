@@ -12,13 +12,11 @@ script:
 #- docker pull treehouses/turtleblocksjs-tags:nginx-x86
 #- docker pull treehouses/turtleblocksjs-tags:nginx-rpi
 - export DOCKER_CLI_EXPERIMENTAL=enabled
-- docker manifest create vmnet8/turtleblocksjs:annarocks3 treehouses/turtleblocksjs-tags:nginx-x86
-  treehouses/turtleblocksjs-tags:nginx-rpi
+- docker manifest create vmnet8/turtleblocksjs:annarocks3 treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 deploy:
 - provider: script
-  script:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker manifest push vmnet8/turtleblocksjs:annarocks3
+  script: docker manifest push vmnet8/turtleblocksjs:annarocks3
   on:
     branch: upload-image2
 env:
