@@ -12,6 +12,8 @@ script:
 - docker manifest inspect alpine:latest
 #- dockertag="$(date +%Y%m%d%H%M)"
 - docker manifest inspect alpine:latest  > manifest.json
+- shatag=$(jq .manifests[0].digest manifest.json)
+- echo $shatag
 # - shatag=
 #- manifest_tag="alpine:3.11@"${shatag}
 - docker manifest create vmnet8/alpine:annarocks vmnet8/alpine-tags:3.11 balenalib/raspberry-pi-alpine:latest
