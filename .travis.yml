@@ -8,8 +8,9 @@ services:
 - docker
 before_install:
 script:
-- docker pull vmnet8/alpine-tags:3.11
-- docker pull balenalib/raspberry-pi-alpine:latest
+#- docker pull vmnet8/alpine-tags:3.11
+#- docker pull balenalib/raspberry-pi-alpine:latest
+- docker manifest inspect alpine:latest
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 #- dockertag="$(date +%Y%m%d%H%M)"
 - docker manifest create vmnet8/alpine:annarocks vmnet8/alpine-tags:3.11 balenalib/raspberry-pi-alpine:latest
