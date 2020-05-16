@@ -1,0 +1,3 @@
+#!/bin/bash
+docker manifest push vmnet8/alpine:$1
+echo "pushed $1"
