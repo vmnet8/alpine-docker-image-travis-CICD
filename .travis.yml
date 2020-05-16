@@ -19,7 +19,7 @@ script:
 - echo $shatag
 #- tags="alpine@${shatag}"
 #- echo $tags
-- docker manifest create vmnet8/alpine:annarocks alpine@:$shatag balenalib/raspberry-pi-alpine:latest
+- docker manifest create vmnet8/alpine:annarocks alpine@$shatag balenalib/raspberry-pi-alpine:latest
 #- docker manifest create vmnet8/turtleblocksjs:latest treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #deploy:
