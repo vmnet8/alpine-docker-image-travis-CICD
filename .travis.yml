@@ -11,8 +11,8 @@ script:
 - docker pull alpine:latest
 - docker pull balenalib/raspberry-pi-alpine:latest
 - export DOCKER_CLI_EXPERIMENTAL=enabled
-- dockertag="$(date +%Y%m%d%H%M)"
-- docker manifest create vmnet8/alpine:$dockertag alpine:latest balenalib/raspberry-pi-alpine:latest
+#- dockertag="$(date +%Y%m%d%H%M)"
+- docker manifest create vmnet8/alpine:annarocks alpine:latest balenalib/raspberry-pi-alpine:latest
 #- docker manifest create vmnet8/turtleblocksjs:latest treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #deploy:
