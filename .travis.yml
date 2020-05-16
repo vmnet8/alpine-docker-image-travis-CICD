@@ -16,9 +16,9 @@ script:
 #- manifest_json_file=$(docker manifest inspect alpine:latest)
 #- shatag=$(jq .manifests[0].digest $(echo "$manifest_json_file"))
 - echo $shatag
-- tags="alpine@${shatag}"
-- echo $tags
-- docker manifest create vmnet8/alpine:annarocks $tags balenalib/raspberry-pi-alpine:latest
+#- tags="alpine@${shatag}"
+#- echo $tags
+- docker manifest create vmnet8/alpine:annarocks alpine@:$shatag balenalib/raspberry-pi-alpine:latest
 #- docker manifest create vmnet8/turtleblocksjs:latest treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #deploy:
