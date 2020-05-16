@@ -8,7 +8,8 @@ services:
 - docker
 before_install:
 script:
-- docker pull treehouses/alpine
+- docker pull alpine:latest
+- docker pull balenalib/raspberry-pi-alpine:latest
 #- docker pull treehouses/turtleblocksjs-tags:nginx-x86
 #- docker pull treehouses/turtleblocksjs-tags:nginx-rpi
 - export DOCKER_CLI_EXPERIMENTAL=enabled
