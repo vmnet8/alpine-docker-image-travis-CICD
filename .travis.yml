@@ -8,11 +8,12 @@ services:
 - docker
 before_install:
 script:
-#- docker pull vmnet8/alpine-tags:3.11
-#- docker pull balenalib/raspberry-pi-alpine:latest
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - docker manifest inspect alpine:latest
 #- dockertag="$(date +%Y%m%d%H%M)"
+- docker manifest inspect alpine:latest  > manifest.json
+# - shatag=
+#- manifest_tag="alpine:3.11@"${shatag}
 - docker manifest create vmnet8/alpine:annarocks vmnet8/alpine-tags:3.11 balenalib/raspberry-pi-alpine:latest
 #- docker manifest create vmnet8/turtleblocksjs:latest treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
