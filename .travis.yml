@@ -9,12 +9,12 @@ services:
 before_install:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
-- docker manifest inspect alpine:latest
+#- docker manifest inspect alpine:latest
 #- dockertag="$(date +%Y%m%d%H%M)"
-#- docker manifest inspect alpine:latest  > manifest.json
-#- shatag=$(jq .manifests[0].digest manifest.json)
-- manifest_json_file=$(docker manifest inspect alpine:latest)
-- shatag=$(jq .manifests[0].digest $(echo "$manifest_json_file"))
+- docker manifest inspect alpine:latest  > manifest.json
+- shatag=$(jq .manifests[0].digest manifest.json)
+#- manifest_json_file=$(docker manifest inspect alpine:latest)
+#- shatag=$(jq .manifests[0].digest $(echo "$manifest_json_file"))
 - echo $shatag
 # - shatag=
 #- manifest_tag="alpine:3.11@"${shatag}
