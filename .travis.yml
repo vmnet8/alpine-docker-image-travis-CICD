@@ -10,7 +10,7 @@ before_install:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 #- docker manifest inspect alpine:latest
-#- dockertag="$(date +%Y%m%d%H%M)"
+- dockertag="$(date +%Y%m%d%H%M)"
 - docker manifest inspect alpine:latest  > manifest.json
 #- shatag=$(jq .manifests[0].digest manifest.json)
 - shatag=$(docker manifest inspect alpine:latest |jq .manifests[0].digest  manifest.json |sed -e 's/^"//' -e 's/"$//')
@@ -19,7 +19,7 @@ script:
 - echo $shatag
 #- tags="alpine@${shatag}"
 #- echo $tags
-- docker manifest create vmnet8/alpine:annarocks alpine@$shatag balenalib/raspberry-pi-alpine:latest
+- docker manifest create vmnet8/alpine:$dockertag alpine@$shatag balenalib/raspberry-pi-alpine:latest
 #- docker manifest create vmnet8/turtleblocksjs:latest treehouses/turtleblocksjs-tags:nginx-x86 treehouses/turtleblocksjs-tags:nginx-rpi
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #deploy:
@@ -29,7 +29,7 @@ script:
 #    all_branches: true
 deploy:
 - provider: script
-  script: docker manifest push vmnet8/alpine:annarocks
+  script: docker manifest push vmnet8/alpine:$dockertag
   on:
     all_branches: true
 env:
