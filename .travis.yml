@@ -9,7 +9,8 @@ services:
 before_install:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
-#- docker manifest inspect alpine:latest  > manifest.json
+- docker manifest inspect vmnet8/helloworld:1.1  > 1-1.txt
+- docker manifest inspect vmnet8/helloworld:1.2  > 1-2.txt
 #- shatag=$(docker manifest inspect alpine:latest |jq .manifests[0].digest  manifest.json |sed -e 's/^"//' -e 's/"$//')
 #- echo $shatag
 #- dockertag="$(date +%Y%m%d%H%M)"
