@@ -16,7 +16,7 @@ script:
 - sha2=$(jq .manifests[1].digest 1-2.txt  |sed -e 's/^"//' -e 's/"$//')
 - echo $sha2
 if:
-    $sha1=$sha2
+    $sha1 = $sha2
     echo "no change"
 #- shatag=$(docker manifest inspect alpine:latest |jq .manifests[0].digest  manifest.json |sed -e 's/^"//' -e 's/"$//')
 #- echo $shatag
