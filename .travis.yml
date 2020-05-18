@@ -9,16 +9,17 @@ services:
 before_install:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
-- docker manifest inspect alpine:latest  > manifest.json
-- shatag=$(docker manifest inspect alpine:latest |jq .manifests[0].digest  manifest.json |sed -e 's/^"//' -e 's/"$//')
-- echo $shatag
-- dockertag="$(date +%Y%m%d%H%M)"
-- docker manifest create vmnet8/alpine:$dockertag alpine@$shatag balenalib/raspberry-pi-alpine:latest
-- docker manifest create vmnet8/alpine:latest alpine@$shatag balenalib/raspberry-pi-alpine:latest
+#- docker manifest inspect alpine:latest  > manifest.json
+#- shatag=$(docker manifest inspect alpine:latest |jq .manifests[0].digest  manifest.json |sed -e 's/^"//' -e 's/"$//')
+#- echo $shatag
+#- dockertag="$(date +%Y%m%d%H%M)"
+#- docker manifest create vmnet8/alpine:$dockertag alpine@$shatag balenalib/raspberry-pi-alpine:latest
+- docker manifest create vmnet8/helloworld:1.1 vmnet8/helloworld-tags:x86 vmnet8/helloworld-tags:rpi
+#- docker manifest create vmnet8/alpine:latest alpine@$shatag balenalib/raspberry-pi-alpine:latest
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 deploy:
 - provider: script
-  script: ./docker_push $dockertag
+  #script: ./docker_push $dockertag
   on:
     all_branches: true
 #deploy:
