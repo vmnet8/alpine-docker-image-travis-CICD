@@ -20,6 +20,7 @@ script:
 deploy:
 - provider: script
   #script: ./docker_push $dockertag
+  script: docker manifest push vmnet8/helloworld:1.1
   on:
     all_branches: true
 #deploy:
