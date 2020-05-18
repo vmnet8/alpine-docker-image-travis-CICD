@@ -11,6 +11,11 @@ script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - docker manifest inspect vmnet8/helloworld:1.1  > 1-1.txt
 - docker manifest inspect vmnet8/helloworld:1.2  > 1-2.txt
+- sha1=$(docker manifest inspect vmnet8/helloworld:1.1 |jq .manifests[0].digest 1-1.txt  |sed -e 's/^"//' -e 's/"$//')
+- echo $sha1
+- sha2=$(docker manifest inspect vmnet8/helloworld:1.2 |jq .manifests[0].digest 1-2.txt  |sed -e 's/^"//' -e 's/"$//')
+- echo $sha2
+
 #- shatag=$(docker manifest inspect alpine:latest |jq .manifests[0].digest  manifest.json |sed -e 's/^"//' -e 's/"$//')
 #- echo $shatag
 #- dockertag="$(date +%Y%m%d%H%M)"
