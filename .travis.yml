@@ -29,9 +29,8 @@ deploy:
 deploy:
 - provider: script
   on:
-    all_branches: true
-  on:
     condtion: $sha1 != $sha2
+    all_branches: true
   script: docker manifest create vmnet8/helloworld:1.3 vmnet8/helloworld-tags:x86-groovy vmnet8/helloworld-tags:rpi
 #  script: docker manifest push vmnet8/alpine:$dockertag
 env:
