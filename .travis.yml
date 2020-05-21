@@ -14,7 +14,8 @@ script:
 - docker manifest inspect vmnet8/helloworld:1.2  > 1-2.txt
 - sha1=$(jq .manifests[1].digest 1-1.txt  |sed -e 's/^"//' -e 's/"$//')
 - echo $sha1
-- sha2=$(jq .manifests[1].digest 1-2.txt  |sed -e 's/^"//' -e 's/"$//')
+#- sha2=$(jq .manifests[1].digest 1-2.txt  |sed -e 's/^"//' -e 's/"$//')
+- sha2=$sha1
 - echo $sha2
 #- docker manifest create vmnet8/alpine:$dockertag alpine@$shatag balenalib/raspberry-pi-alpine:latest
 #- docker manifest create vmnet8/helloworld:1.2 vmnet8/helloworld-tags:x86-groovy vmnet8/helloworld-tags:rpi
