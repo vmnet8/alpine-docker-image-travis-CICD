@@ -15,9 +15,11 @@ script:
 - echo "archtecture is ${alpine_arch}"
 - alpine_sha=$(jq .manifests[0].digest alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
 - echo $alpine_sha
-- docker manifest inspect treehouses/alpine:latest  > treehouses-alpine-sha.txt
-- treehouses_alpine_sha=$(jq .manifests[1].digest treehouses-alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
-- echo $treehouses_alpine_sha
+- docker manifest inspect vmnet8/alpine:latest  > vmnet8-alpine-sha.txt
+- vmnet8_alpine_arch=$(jq .manifests[0].platform.architecture vmnet8-alpine-sha.txt)
+- echo "archtecture is ${vmnet8_alpine_arch}"
+- vmnet8_alpine_sha=$(jq .manifests[1].digest vmnet8-alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
+- echo $vmnet8_alpine_sha
 #- docker manifest inspect balenalib/raspberry-pi-alpine:latest  > balena-sha.txt
 #- balena_sha=$(jq .manifests[1].digest balena-sha.txt  |sed -e 's/^"//' -e 's/"$//')
 #- sha2=$sha1
