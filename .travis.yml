@@ -38,7 +38,7 @@ script:
 #- provider: script
 #  script: ./docker_push_change $dockertag
 #  on:
-#    condtion: $sha1 != $sha2
+#    condition: $sha1 != $sha2
 #    all_branches: true
 #  script: docker manifest create vmnet8/helloworld:$dockertag vmnet8/helloworld-tags:x86-groovy vmnet8/helloworld-tags:rpi;  docker manifest push vmnet8/helloworld:$dockertag
 env:
