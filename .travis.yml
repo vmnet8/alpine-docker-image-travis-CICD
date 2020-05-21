@@ -12,11 +12,11 @@ script:
 - dockertag="$(date +%Y%m%d%H%M)"
 - docker manifest inspect alpine:latest  > alpine-sha.txt
 - docker manifest inspect balenalib/raspberry-pi-alpine:latest  > balena-sha.txt
-- alpine-sha=$(jq .manifests[1].digest alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
+- alpine-sha=$(jq .manifests[0].digest alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
 - echo $alpine-sha
-- balena-sha=$(jq .manifests[1].digest balena-sha.txt  |sed -e 's/^"//' -e 's/"$//')
+#- balena-sha=$(jq .manifests[1].digest balena-sha.txt  |sed -e 's/^"//' -e 's/"$//')
 #- sha2=$sha1
-- echo $balena-sha
+#- echo $balena-sha
 #- docker manifest create vmnet8/alpine:$dockertag alpine@$shatag balenalib/raspberry-pi-alpine:latest
 #- docker manifest create vmnet8/helloworld:1.2 vmnet8/helloworld-tags:x86-groovy vmnet8/helloworld-tags:rpi
 #- docker manifest create vmnet8/alpine:latest alpine@$shatag balenalib/raspberry-pi-alpine:latest
