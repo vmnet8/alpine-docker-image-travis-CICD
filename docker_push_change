@@ -1,0 +1,5 @@
+#!/bin/bash
+docker manifest create vmnet8/helloworld:$dockertag vmnet8/helloworld-tags:x86-groovy vmnet8/helloworld-tags:rpi;
+echo "pushed tag:$dockertag"
+#docker manifest push vmnet8/helloworld:$dockertag
+#echo "pushed latest"
