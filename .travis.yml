@@ -10,29 +10,29 @@ before_install:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - dockertag="$(date +%Y%m%d%H%M)"
-- docker manifest inspect vmnet8/helloworld:1.1  > 1-1.txt
-- docker manifest inspect vmnet8/helloworld:1.2  > 1-2.txt
-- sha1=$(jq .manifests[1].digest 1-1.txt  |sed -e 's/^"//' -e 's/"$//')
-- echo $sha1
-#- sha2=$(jq .manifests[1].digest 1-2.txt  |sed -e 's/^"//' -e 's/"$//')
-- sha2=$sha1
-- echo $sha2
+- docker manifest inspect alpine:latest  > alpine-sha.txt
+- docker manifest inspect balenalib/raspberry-pi-alpine:latest  > balena-sha.txt
+- alpine-sha=$(jq .manifests[1].digest alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
+- echo $alpine-sha
+- balena-sha=$(jq .manifests[1].digest balena-sha.txt  |sed -e 's/^"//' -e 's/"$//')
+#- sha2=$sha1
+- echo $balena-sha
 #- docker manifest create vmnet8/alpine:$dockertag alpine@$shatag balenalib/raspberry-pi-alpine:latest
 #- docker manifest create vmnet8/helloworld:1.2 vmnet8/helloworld-tags:x86-groovy vmnet8/helloworld-tags:rpi
 #- docker manifest create vmnet8/alpine:latest alpine@$shatag balenalib/raspberry-pi-alpine:latest
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-deploy:
+#deploy:
 #- provider: script
   #script: ./docker_push $dockertag
  # script: docker manifest push vmnet8/helloworld:1.2
   #on:
   #  all_branches: true
-deploy:
-- provider: script
-  script: ./docker_push_change $dockertag
-  on:
-    condtion: $sha1 != $sha2
-    all_branches: true
+#deploy:
+#- provider: script
+#  script: ./docker_push_change $dockertag
+#  on:
+#    condtion: $sha1 != $sha2
+#    all_branches: true
 #  script: docker manifest create vmnet8/helloworld:$dockertag vmnet8/helloworld-tags:x86-groovy vmnet8/helloworld-tags:rpi;  docker manifest push vmnet8/helloworld:$dockertag
 env:
   global:
