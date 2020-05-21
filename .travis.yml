@@ -14,7 +14,7 @@ script:
 - alpine_sha=$(jq .manifests[0].digest alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
 - echo $alpine_sha
 - docker manifest inspect treehouses/alpine:latest  > treehouses-alpine-sha.txt
-- treehouses_alpine_sha=$(jq .manifests[0].digest treehouses-alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
+- treehouses_alpine_sha=$(jq .manifests[1].digest treehouses-alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
 - echo $treehouses_alpine_sha
 #- docker manifest inspect balenalib/raspberry-pi-alpine:latest  > balena-sha.txt
 #- balena_sha=$(jq .manifests[1].digest balena-sha.txt  |sed -e 's/^"//' -e 's/"$//')
