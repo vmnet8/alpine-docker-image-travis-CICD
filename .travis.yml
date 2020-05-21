@@ -28,7 +28,7 @@ deploy:
   #  all_branches: true
 deploy:
 - provider: script
-  script: ./docker_push_change $dockertag
+  script: ./docker_push_change 
   on:
     condtion: $sha1 != $sha2
     all_branches: true
