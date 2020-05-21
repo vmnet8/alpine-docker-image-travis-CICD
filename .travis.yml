@@ -11,7 +11,7 @@ script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - dockertag="$(date +%Y%m%d%H%M)"
 - docker manifest inspect alpine:latest  > alpine-sha.txt
-- alpine_arch=$(jq .manifests[0].platform.architecture alpine-sha)
+- alpine_arch=$(jq .manifests[0].platform.architecture alpine-sha.txt)
 - echo "archtecture is ${alpine_arch}"
 - alpine_sha=$(jq .manifests[0].digest alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
 - echo $alpine_sha
