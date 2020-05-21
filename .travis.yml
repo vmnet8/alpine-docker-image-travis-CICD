@@ -11,12 +11,15 @@ script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - dockertag="$(date +%Y%m%d%H%M)"
 - docker manifest inspect alpine:latest  > alpine-sha.txt
-- docker manifest inspect balenalib/raspberry-pi-alpine:latest  > balena-sha.txt
 - alpine_sha=$(jq .manifests[0].digest alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
 - echo $alpine_sha
-#- balena-sha=$(jq .manifests[1].digest balena-sha.txt  |sed -e 's/^"//' -e 's/"$//')
+- docker manifest inspect treehouses/alpine:latest  > treehouses-alpine-sha.txt
+- treehouses_alpine_sha=$(jq .manifests[0].digest treehouses-alpine-sha.txt  |sed -e 's/^"//' -e 's/"$//')
+- echo $treehouses_alpine_sha
+#- docker manifest inspect balenalib/raspberry-pi-alpine:latest  > balena-sha.txt
+#- balena_sha=$(jq .manifests[1].digest balena-sha.txt  |sed -e 's/^"//' -e 's/"$//')
 #- sha2=$sha1
-#- echo $balena-sha
+#- echo $balena_sha
 #- docker manifest create vmnet8/alpine:$dockertag alpine@$shatag balenalib/raspberry-pi-alpine:latest
 #- docker manifest create vmnet8/helloworld:1.2 vmnet8/helloworld-tags:x86-groovy vmnet8/helloworld-tags:rpi
 #- docker manifest create vmnet8/alpine:latest alpine@$shatag balenalib/raspberry-pi-alpine:latest
