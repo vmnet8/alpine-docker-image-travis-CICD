@@ -45,10 +45,10 @@ get_tag_sha(){
 compare_sha () {
     if [ "$1" == "$2" ];then
         return_value=$?
-        return $return_value 
+        return $return_value
     else
         return_value=$?
-        return $return_value 
+        return $return_value
         #create_manifest
     fi
 }
