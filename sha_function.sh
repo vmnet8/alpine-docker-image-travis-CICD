@@ -43,18 +43,10 @@ get_tag_sha(){
 
 
 compare_sha () {
-    local sha1 my_sha
-    sha1=$(get_manifest_sha $@)
-    #sha1=$(get_tag_sha)
-    echo $sha1
-    my_sha=$(get_manifest_sha $@)
-    #my_sha=$(get_tag_sha)
-    echo $sha2
-
-    if [ ${sha1} == ${my_sha} ];then
-        false
+    if [ $1 == $2 ];then
+        return false
     else
-        true
+        return true
     fi
 }
 
