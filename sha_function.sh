@@ -52,7 +52,7 @@ compare_sha () {
 }
 
 create_manifest(){
-    pass
+    echo "will create manifest"
     #offical_image=$1
     #my_repo=$2
     #arch=$3
