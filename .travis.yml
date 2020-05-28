@@ -7,8 +7,17 @@ addons:
 services:
 - docker
 before_install:
+
+before_install:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
+- source sha_function.sh
+- sha1=$(get_manifest_sha alpine latest amd64)
+- sha2=$(get_manifest_sha "vmnet8/alpine" latest amd64)
+- echo "1 is ${sha1}"
+- echo "2 is ${sha2}"
+- compare_sha $1 $2
+
 #- docker manifest inspect alpine:latest  > manifest.json
 #- shatag=$(docker manifest inspect alpine:latest |jq .manifests[0].digest  manifest.json |sed -e 's/^"//' -e 's/"$//')
 #- echo $shatag
@@ -18,7 +27,7 @@ script:
 #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 deploy:
 - provider: script
-  script: ./call.sh 
+  script: create_manifest
   on:
     all_branches: true
 #deploy:
