@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -x
+set -x
 
 get_manifest_sha(){
     local sha
@@ -47,7 +47,9 @@ compare_sha () {
         return_value=$?
         return $return_value 
     else
-        create_manifest
+        return_value=$?
+        return $return_value 
+        #create_manifest
     fi
 }
 
@@ -68,7 +70,7 @@ create_manifest(){
     #docker manifest create vmnet8/alpine:$manifest_tag-$timetag
     #docker manifest push vmnet8/alpine:$manifest_tag-$timetag
 }
-#compare_sha
+compare_sha $1 $2
 #get_manifest_sha "vmnet8/alpine:$manifest_tag" "$arch"
 #get_manifest_sha $@
 #get_vmnet_sha $1 $2

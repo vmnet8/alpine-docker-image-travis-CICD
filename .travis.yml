@@ -10,11 +10,11 @@ before_install:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - source sha_function.sh
-- sha1=$(get_manifest_sha alpine latest arm64)
+- sha1=$(get_manifest_sha alpine latest amd64)
 - sha2=$(get_manifest_sha "vmnet8/alpine" latest amd64)
 - echo "1 is ${sha1}"
 - echo "2 is ${sha2}"
-- compare_sha ${sha1} ${sha2}
+#- compare_sha ${sha1} ${sha2}
 
 #- docker manifest inspect alpine:latest  > manifest.json
 #- shatag=$(docker manifest inspect alpine:latest |jq .manifests[0].digest  manifest.json |sed -e 's/^"//' -e 's/"$//')
@@ -28,7 +28,7 @@ deploy:
   script: echo "create_manifest"
   on:
     all_branches: true
-    #condition: compare_sha $sha1 $sha2
+    condition: " $(compare_sha $sha1 $sha2) = 1"
 #deploy:
 #- provider: script
 #  script: docker manifest push vmnet8/alpine:$dockertag
