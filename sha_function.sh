@@ -43,28 +43,30 @@ get_tag_sha(){
 
 
 compare_sha () {
-    if [ $1 == $2 ];then
-        return false
+    if [ "$1" == "$2" ];then
+        return_value=$?
+        return $return_value 
     else
-        return true
+        create_manifest
     fi
 }
 
 create_manifest(){
-    offical_image=$1
-    my_repo=$2
-    arch=$3
-    my_tag=$4
-    #my_new_image=$my_repo:$my_new_tag
-    #echo $my_new_image
-    timetag="$(date +%Y%m%d%H%M)"
-    docker -q pull $1
-    docker tag $1 "$2":"$3"-$my_tag-$timetag
-    docker push vmnet8/alpine-tags:$arch-$my_tag-$timetag
-    echo "create new manifest"
-    echo ""
-    docker manifest create vmnet8/alpine:$manifest_tag-$timetag
-    docker manifest push vmnet8/alpine:$manifest_tag-$timetag
+    pass
+    #offical_image=$1
+    #my_repo=$2
+    #arch=$3
+    #my_tag=$4
+    ##my_new_image=$my_repo:$my_new_tag
+    ##echo $my_new_image
+    #timetag="$(date +%Y%m%d%H%M)"
+    #docker -q pull $1
+    #docker tag $1 "$2":"$3"-$my_tag-$timetag
+    #docker push vmnet8/alpine-tags:$arch-$my_tag-$timetag
+    #echo "create new manifest"
+    #echo ""
+    #docker manifest create vmnet8/alpine:$manifest_tag-$timetag
+    #docker manifest push vmnet8/alpine:$manifest_tag-$timetag
 }
 #compare_sha
 #get_manifest_sha "vmnet8/alpine:$manifest_tag" "$arch"
