@@ -52,9 +52,9 @@ compare_sha () {
     echo $sha2
 
     if [ ${sha1} == ${my_sha} ];then
-        echo "no change of sha"
+        false
     else
-        create_manifest
+        true
     fi
 }
 
