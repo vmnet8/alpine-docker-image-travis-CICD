@@ -110,9 +110,9 @@ compare_balena() {
     local balena_tag=$1
     local my_tag=$2
     balena_rpi_sha=$(get_tag_sha $BELENA_REPO $1)
-    echo $balena_rpi_sha
+ #   echo $balena_rpi_sha
     my_rpi_sha=$(get_tag_sha $MY_RPI_REPO $2)
-    echo $my_rpi_sha
+  #  echo $my_rpi_sha
     if [ "$belena_rpi_sha" != "$my_rpi_sha" ]; then
         create_manifest
         push_manifest
