@@ -105,7 +105,8 @@ compare_alpine() {
  #   echo $my_alpine_sha
     if [ "$alpine_sha" != "$my_alpine_sha" ]; then
         #create_manifest("3.12.0" "20200518" "test")
-        create_manifest
+        echo   "create_manifest"
+        #create_manifest
         push_manifest
     fi
     #if [ "$arch" = arm ]; then
@@ -127,7 +128,8 @@ compare_balena() {
     my_rpi_sha=$(get_tag_sha $MY_RPI_REPO $2)
   #  echo $my_rpi_sha
     if [ "$belena_rpi_sha" != "$my_rpi_sha" ]; then
-        create_manifest
+        #create_manifest
+        echo   "create_manifest"
         push_manifest
     fi
 }
