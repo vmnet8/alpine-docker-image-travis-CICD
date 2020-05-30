@@ -104,7 +104,8 @@ compare_alpine() {
     my_alpine_sha=$(get_manifest_sha $MY_ALPINE_REPO $tag $arch)
  #   echo $my_alpine_sha
     if [ "$alpine_sha" != "$my_alpine_sha" ]; then
-        create_manifest("3.12.0" "20200518" "test")
+        #create_manifest("3.12.0" "20200518" "test")
+        create_manifest
         push_manifest
     fi
     #if [ "$arch" = arm ]; then
