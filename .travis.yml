@@ -31,7 +31,7 @@ script:
 #- docker manifest create vmnet8/alpine:latest alpine@$shatag balenalib/raspberry-pi-alpine:latest
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 before_deploy:
-- create_manifest
+- create_manifest "3.12.0" "latest" "test"
 deploy:
 - provider: script
   script: echo "create_manifest from deploy echo" && echo "push manifest"
