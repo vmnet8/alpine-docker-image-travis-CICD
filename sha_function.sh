@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -x
+set -x
 
 get_manifest_sha(){
     local sha
@@ -59,20 +59,32 @@ manifest_sha () {
 
 create_manifest(){
     echo "will create manifest"
+    local alpine_tag=$1
+    local balena_tag=$2
+    local my_alpine_tag=$3
+    alpine_sha=$(get_manifest_sha $ALPINE_REPO $1 "amd64")
+    echo $alpine_sha
+    #local my_balena_tag=$4
     #offical_image=$1
     #my_repo=$2
     #arch=$3
     #my_tag=$4
     ##my_new_image=$my_repo:$my_new_tag
     ##echo $my_new_image
-    #timetag="$(date +%Y%m%d%H%M)"
-    #docker -q pull $1
-    #docker tag $1 "$2":"$3"-$my_tag-$timetag
+    timetag="$(date +%Y%m%d%H%M)"
+    docker pull $ALPINE_REPO:$alpine_tag
+    docker pull $BALENA_REPO:$balena_tag
+    #docker tag $ALPINE_REPO:$tag  $MY_RPI_REPO:"x86"-$alpine_tag
+    #docker tag $BALENA_REPO:$balena_tag  $MY_RPI_REPO:"rpi"-$balena_tag
+    #docker push $MY_RPI_REPO:"x86"-$alpine_tag
+    #docker push $MY_RPI_REPO:"rpi"-$balena_tag
     #docker push vmnet8/alpine-tags:$arch-$my_tag-$timetag
-    #echo "create new manifest"
+    echo "create new manifest"
     #echo ""
-    #docker manifest create vmnet8/alpine:$manifest_tag-$timetag
-    #docker manifest push vmnet8/alpine:$manifest_tag-$timetag
+    a=$ALPINE_REPO"@"$alpine_sha
+    echo $a
+    docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
+#    docker manifest push $MY_ALPINE_REPO:$my_alpine_tag-$timetag
 }
 push_manifest(){
 
@@ -82,7 +94,7 @@ push_manifest(){
 ALPINE_REPO='alpine'
 MY_ALPINE_REPO='vmnet8/alpine'
 MY_RPI_REPO='vmnet8/alpine-tags'
-BELENA_REPO='balenalib/raspberry-pi-alpine'
+BALENA_REPO='balenalib/raspberry-pi-alpine'
 
 compare_alpine() {
     local tag=$1
@@ -92,11 +104,11 @@ compare_alpine() {
     my_alpine_sha=$(get_manifest_sha $MY_ALPINE_REPO $tag $arch)
  #   echo $my_alpine_sha
     if [ "$alpine_sha" != "$my_alpine_sha" ]; then
-        create_manifest
+        create_manifest("3.12.0" "20200518" "test")
         push_manifest
     fi
     #if [ "$arch" = arm ]; then
-    #    balena_rpi_sha=$(get_tag_sha $BELENA_REPO $tag)
+    #    balena_rpi_sha=$(get_tag_sha $BALENA_REPO $tag)
     #    echo $balena_rpi_sha
     #    my_rpi_sha=$(get_tag_sha $MY_RPI_REPO $tag)
     #    echo $my_rpi_sha
@@ -109,7 +121,7 @@ compare_alpine() {
 compare_balena() {
     local balena_tag=$1
     local my_tag=$2
-    balena_rpi_sha=$(get_tag_sha $BELENA_REPO $1)
+    balena_rpi_sha=$(get_tag_sha $BALENA_REPO $1)
  #   echo $balena_rpi_sha
     my_rpi_sha=$(get_tag_sha $MY_RPI_REPO $2)
   #  echo $my_rpi_sha
@@ -125,5 +137,5 @@ compare_balena() {
 #get_manifest_sha $@
 #get_vmnet_sha $1 $2
 #get_tag_sha $1 $2
-#create_manifest
+#create_manifest $@
 #manifest_sha $1 $2 $3 $4
