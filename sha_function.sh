@@ -100,6 +100,7 @@ compare_alpine() {
         #create_manifest("3.12.0" "20200518" "test")
         return_value=$?
         echo $return_value
+        push_manifest
     fi
     #if [ "$arch" = arm ]; then
     #    balena_rpi_sha=$(get_tag_sha $BALENA_REPO $tag)
@@ -132,5 +133,5 @@ compare_balena() {
 #get_manifest_sha $@
 #get_vmnet_sha $1 $2
 #get_tag_sha $1 $2
-create_manifest $@
+#create_manifest $@
 #manifest_sha $1 $2 $3 $4
