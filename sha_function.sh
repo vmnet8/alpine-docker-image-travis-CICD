@@ -11,7 +11,7 @@ get_manifest_sha(){
     variant=$4
     export DOCKER_CLI_EXPERIMENTAL=enabled
 
-#    docker pull -q  ${docker_image} &>/dev/null
+    docker pull -q  ${docker_image} &>/dev/null
     docker manifest inspect ${docker_image} > "$2".txt
 
     sha=""
@@ -21,7 +21,7 @@ get_manifest_sha(){
         arch=$(jq .manifests[$i].platform.architecture "$2".txt |sed -e 's/^"//' -e 's/"$//')
         if [ "$arch" = "$3" ] && [ "$arch" !=  "arm" ]; then
             sha=$(jq .manifests[$i].digest "$2".txt  |sed -e 's/^"//' -e 's/"$//')
-            #echo ${sha}
+            echo ${sha}
         elif [ "$arch" = "$3" ]; then
             variant=$(jq .manifests[$i].platform.variant "$2".txt |sed -e 's/^"//' -e 's/"$//')
             if [ "$variant" == "$4" ]; then
