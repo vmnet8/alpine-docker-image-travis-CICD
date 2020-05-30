@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+#set -x
 
 get_manifest_sha(){
     local sha
@@ -34,22 +34,26 @@ get_manifest_sha(){
 }
 
 get_tag_sha(){
-    docker_image=$1
-    docker pull "$1" &>/dev/null
+    #docker_image=$1
+    local repo=$1
+    local tag=$2
+    docker pull "$repo:$tag" &>/dev/null
     #sha=$(docker inspect --format='{{index .RepoDigests 0}}' balenalib/raspberry-pi-alpine:run | cut -d @ -f 2)
-    sha=$(docker inspect --format='{{index .RepoDigests 0}}' "$1" | cut -d @ -f 2)
-    echo ${sha}
+    sha=$(docker inspect --format='{{index .RepoDigests 0}}' "$repo:$tag" 2>/dev/null | cut -d @ -f 2)
+    #docker inspect --format='{{index .RepoDigests 0}}' "$repo:$tag" 2>/dev/null | cut -d @ -f 2
+    echo $sha
 }
 
 
 compare_sha () {
-    if [ "$1" == "$2" ];then
-        return_value=$?
-        return $return_value
+    [ "$1" = "$2" ]
+}
+
+manifest_sha () {
+    if ! compare_sha "$1" "$2" || ! compare_sha "$3" "$4" ; then
+        create_manifest
     else
-        return_value=$?
-        return $return_value
-        #create_manifest
+        echo "no need to create new manifest"
     fi
 }
 
@@ -70,9 +74,56 @@ create_manifest(){
     #docker manifest create vmnet8/alpine:$manifest_tag-$timetag
     #docker manifest push vmnet8/alpine:$manifest_tag-$timetag
 }
-compare_sha $1 $2
+push_manifest(){
+
+    echo "push manifest"
+}
+
+ALPINE_REPO='alpine'
+MY_ALPINE_REPO='vmnet8/alpine'
+MY_RPI_REPO='vmnet8/alpine-tags'
+BELENA_REPO='balenalib/raspberry-pi-alpine'
+
+compare_alpine() {
+    local tag=$1
+    local arch=$2
+    alpine_sha=$(get_manifest_sha $ALPINE_REPO $tag $arch)
+    echo $alpine_sha
+    my_alpine_sha=$(get_manifest_sha $MY_ALPINE_REPO $tag $arch)
+    echo $my_alpine_sha
+    if [ "$alpine_sha" != "$my_alpine_sha" ]; then
+        create_manifest
+        push_manifest
+    fi
+    #if [ "$arch" = arm ]; then
+    #    balena_rpi_sha=$(get_tag_sha $BELENA_REPO $tag)
+    #    echo $balena_rpi_sha
+    #    my_rpi_sha=$(get_tag_sha $MY_RPI_REPO $tag)
+    #    echo $my_rpi_sha
+    #    if [ "$belena_rpi_sha" != "$my_rpi_sha" ]; then
+    #        create_manifest
+    #    fi
+    #fi
+}
+
+compare_balena() {
+    local balena_tag=$1
+    local my_tag=$2
+    balena_rpi_sha=$(get_tag_sha $BELENA_REPO $1)
+    echo $balena_rpi_sha
+    my_rpi_sha=$(get_tag_sha $MY_RPI_REPO $2)
+    echo $my_rpi_sha
+    if [ "$belena_rpi_sha" != "$my_rpi_sha" ]; then
+        create_manifest
+        push_manifest
+    fi
+}
+#compare_sha $1 $2
+#compare_alpine $@
+compare_balena $@
 #get_manifest_sha "vmnet8/alpine:$manifest_tag" "$arch"
 #get_manifest_sha $@
 #get_vmnet_sha $1 $2
-#get_tag_sha $1
-#create_manifest $1 $2 $3 $4
+#get_tag_sha $1 $2
+#create_manifest
+#manifest_sha $1 $2 $3 $4
