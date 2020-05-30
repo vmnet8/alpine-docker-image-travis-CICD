@@ -21,12 +21,12 @@ get_manifest_sha(){
         arch=$(jq .manifests[$i].platform.architecture "$2".txt |sed -e 's/^"//' -e 's/"$//')
         if [ "$arch" = "$3" ] && [ "$arch" !=  "arm" ]; then
             sha=$(jq .manifests[$i].digest "$2".txt  |sed -e 's/^"//' -e 's/"$//')
-            echo ${sha}
+            #echo ${sha}
         elif [ "$arch" = "$3" ]; then
             variant=$(jq .manifests[$i].platform.variant "$2".txt |sed -e 's/^"//' -e 's/"$//')
             if [ "$variant" == "$4" ]; then
                 sha=$(jq .manifests[$i].digest "$2".txt  |sed -e 's/^"//' -e 's/"$//')
-                echo ${sha}
+             #   echo ${sha}
             fi
         fi
         i=$i+1
@@ -41,7 +41,7 @@ get_tag_sha(){
     #sha=$(docker inspect --format='{{index .RepoDigests 0}}' balenalib/raspberry-pi-alpine:run | cut -d @ -f 2)
     sha=$(docker inspect --format='{{index .RepoDigests 0}}' "$repo:$tag" 2>/dev/null | cut -d @ -f 2)
     #docker inspect --format='{{index .RepoDigests 0}}' "$repo:$tag" 2>/dev/null | cut -d @ -f 2
-    echo $sha
+    #echo $sha
 }
 
 
@@ -100,7 +100,7 @@ compare_alpine() {
         #create_manifest("3.12.0" "20200518" "test")
         return_value=$?
         echo $return_value
-        push_manifest
+      #  push_manifest
     fi
     #if [ "$arch" = arm ]; then
     #    balena_rpi_sha=$(get_tag_sha $BALENA_REPO $tag)

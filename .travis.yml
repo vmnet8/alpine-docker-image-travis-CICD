@@ -31,10 +31,11 @@ script:
 #- docker manifest create vmnet8/alpine:latest alpine@$shatag balenalib/raspberry-pi-alpine:latest
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 before_deploy:
-- create_manifest "3.12.0" "latest" "test"
+#- create_manifest "3.12.0" "latest" "test"
+- create_manifest "latest" "latest" "3.12"
 deploy:
 - provider: script
-  script: push_manifest
+  script: echo "push_manifest"
   on:
     all_branches: true
     #condition: " $(compare_sha $sha1 $sha2) = 1" or " $(compare_sha $sha3 $sha4) = 1"
