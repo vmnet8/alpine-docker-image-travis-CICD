@@ -35,7 +35,8 @@ before_deploy:
 - create_manifest "latest" "latest" "3.12"
 deploy:
 - provider: script
-  script: echo "push_manifest"
+  #script: echo "push_manifest"
+  script: push_manifest
   on:
     all_branches: true
     #condition: " $(compare_sha $sha1 $sha2) = 1" or " $(compare_sha $sha3 $sha4) = 1"
