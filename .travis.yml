@@ -10,8 +10,8 @@ before_install:
 script:
 - export DOCKER_CLI_EXPERIMENTAL=enabled
 - source sha_function.sh
-- compare_alpine("latest" "amd64")
-- compare_balena("latest" "rpi-3.11")
+- compare_alpine "latest" "amd64"
+- compare_balena "latest" "rpi-3.11"
 #- create_manifest
 #- sha1=$(get_manifest_sha alpine latest amd64)
 #- sha2=$(get_manifest_sha "vmnet8/alpine" latest amd64)
