@@ -64,13 +64,6 @@ create_manifest(){
     local my_alpine_tag=$3
     alpine_sha=$(get_manifest_sha $ALPINE_REPO $1 "amd64")
     echo $alpine_sha
-    #local my_balena_tag=$4
-    #offical_image=$1
-    #my_repo=$2
-    #arch=$3
-    #my_tag=$4
-    ##my_new_image=$my_repo:$my_new_tag
-    ##echo $my_new_image
     timetag="$(date +%Y%m%d%H%M)"
     docker pull $ALPINE_REPO:$alpine_tag
     docker pull $BALENA_REPO:$balena_tag
@@ -105,9 +98,8 @@ compare_alpine() {
  #   echo $my_alpine_sha
     if [ "$alpine_sha" != "$my_alpine_sha" ]; then
         #create_manifest("3.12.0" "20200518" "test")
-        echo   "create_manifest"
-        #create_manifest
-        push_manifest
+        return_value=$?
+        echo $return_value
     fi
     #if [ "$arch" = arm ]; then
     #    balena_rpi_sha=$(get_tag_sha $BALENA_REPO $tag)
@@ -130,7 +122,7 @@ compare_balena() {
     if [ "$belena_rpi_sha" != "$my_rpi_sha" ]; then
         #create_manifest
         echo   "create_manifest"
-        push_manifest
+#        push_manifest
     fi
 }
 #compare_sha $1 $2
@@ -140,5 +132,5 @@ compare_balena() {
 #get_manifest_sha $@
 #get_vmnet_sha $1 $2
 #get_tag_sha $1 $2
-#create_manifest $@
+create_manifest $@
 #manifest_sha $1 $2 $3 $4
