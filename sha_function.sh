@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+#set -x
 
 get_manifest_sha(){
     local sha
