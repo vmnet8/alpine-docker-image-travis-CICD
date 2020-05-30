@@ -35,8 +35,8 @@ before_deploy:
 - create_manifest "latest" "latest" "3.12"
 deploy:
 - provider: script
-  script: echo "push_manifest"
-  #script: push_manifest
+  #script: echo "push_manifest"
+  script: push_manifest
   on:
     all_branches: true
     condition:  $(compare_alpine $1 $2) = 0
