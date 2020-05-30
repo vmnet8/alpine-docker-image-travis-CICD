@@ -88,9 +88,9 @@ compare_alpine() {
     local tag=$1
     local arch=$2
     alpine_sha=$(get_manifest_sha $ALPINE_REPO $tag $arch)
-    echo $alpine_sha
+ #   echo $alpine_sha
     my_alpine_sha=$(get_manifest_sha $MY_ALPINE_REPO $tag $arch)
-    echo $my_alpine_sha
+ #   echo $my_alpine_sha
     if [ "$alpine_sha" != "$my_alpine_sha" ]; then
         create_manifest
         push_manifest
@@ -120,7 +120,7 @@ compare_balena() {
 }
 #compare_sha $1 $2
 #compare_alpine $@
-compare_balena $@
+#compare_balena $@
 #get_manifest_sha "vmnet8/alpine:$manifest_tag" "$arch"
 #get_manifest_sha $@
 #get_vmnet_sha $1 $2
