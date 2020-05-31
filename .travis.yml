@@ -17,18 +17,7 @@ script:
 #- sha2=$(get_manifest_sha "vmnet8/alpine" latest amd64)
 #- echo "1 is ${sha1}"
 #- echo "2 is ${sha2}"
-#- sha3=$(get_tag_sha "balenalib/raspberry-pi-alpine:latest")
-#- sha4=$(get_tag_sha "vmnet8/alpine-tags:rpi-3.11")
-#- echo "3 is ${sha3}"
-#- echo "4 is ${sha4}"
-#- compare_sha ${sha1} ${sha2}
 
-#- docker manifest inspect alpine:latest  > manifest.json
-#- shatag=$(docker manifest inspect alpine:latest |jq .manifests[0].digest  manifest.json |sed -e 's/^"//' -e 's/"$//')
-#- echo $shatag
-#- dockertag="$(date +%Y%m%d%H%M)"
-#- docker manifest create vmnet8/alpine:$dockertag alpine@$shatag balenalib/raspberry-pi-alpine:latest
-#- docker manifest create vmnet8/alpine:latest alpine@$shatag balenalib/raspberry-pi-alpine:latest
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 before_deploy:
 #- create_manifest "3.12.0" "latest" "test"
