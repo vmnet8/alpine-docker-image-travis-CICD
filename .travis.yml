@@ -36,6 +36,7 @@ deploy:
 #    condition:  $(compare_sha $1 $2 $3 $4) = 0
 #    condition: "$result1 = 'will create manifest' " or "$result2 = 'will create manifest' "
 #    condition: "$create_manifest"  ture
+    condition: "$flag" = 0
 #deploy:
 #- provider: script
 #  script: docker manifest push vmnet8/alpine:$dockertag
