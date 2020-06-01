@@ -47,45 +47,27 @@ get_tag_sha(){
 
 compare_sha () {
     if [ "$1" != "$2" ] || [ "$3" != "$4" ]; then
-        #echo $?
         echo "true"
     else
-        #echo "no need do nothing"
-        #echo $?
         echo "false"
     fi
 }
 
-manifest_sha () {
-    if ! compare_sha "$1" "$2" || ! compare_sha "$3" "$4" ; then
-        create_manifest
-    else
-        echo "no need to create new manifest"
-    fi
+#    timetag="$(date +%Y%m%d%H%M)"
+
+
+create_manifests(){
+    local repo=$1
+    local tag=$2
+    local x86=$3
+    local rpi=$4
+    docker manifest create $repo:$tag $x86 $rpi
+    docker manifest create $repo:latest $x86 $rpi
 }
 
-create_manifest(){
-    echo "will create manifest"
-    local alpine_tag=$1
-    local balena_tag=$2
-    local my_alpine_tag=$3
-    alpine_sha=$(get_manifest_sha $ALPINE_REPO $1 "amd64")
-#    echo $alpine_sha
-    timetag="$(date +%Y%m%d%H%M)"
-    docker pull $ALPINE_REPO:$alpine_tag
-    docker pull $BALENA_REPO:$balena_tag
-    #docker tag $ALPINE_REPO:$tag  $MY_RPI_REPO:"x86"-$alpine_tag
-    #docker tag $BALENA_REPO:$balena_tag  $MY_RPI_REPO:"rpi"-$balena_tag
-    #docker push $MY_RPI_REPO:"x86"-$alpine_tag
-    #docker push $MY_RPI_REPO:"rpi"-$balena_tag
-    #docker push vmnet8/alpine-tags:$arch-$my_tag-$timetag
-    echo "create new manifest"
-    a=$ALPINE_REPO"@"$alpine_sha
-    #echo $a
-    docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
- #   docker manifest create $MY_ALPINE_REPO:$my_alpine_tag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
-    #docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
-}
+#    docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
+
+
 push_manifest(){
     local my_alpine_tag=$1
     export DOCKER_CLI_EXPERIMENTAL=enabled
