@@ -71,7 +71,7 @@ create_manifest(){
     local my_alpine_tag=$3
     alpine_sha=$(get_manifest_sha $ALPINE_REPO $1 "amd64")
 #    echo $alpine_sha
- #   timetag="$(date +%Y%m%d%H%M)"
+    timetag="$(date +%Y%m%d%H%M)"
     docker pull $ALPINE_REPO:$alpine_tag
     docker pull $BALENA_REPO:$balena_tag
     #docker tag $ALPINE_REPO:$tag  $MY_RPI_REPO:"x86"-$alpine_tag
@@ -82,9 +82,9 @@ create_manifest(){
     echo "create new manifest"
     a=$ALPINE_REPO"@"$alpine_sha
     #echo $a
-    #docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
-    docker manifest create $MY_ALPINE_REPO:$my_alpine_tag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
-    docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
+    docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
+ #   docker manifest create $MY_ALPINE_REPO:$my_alpine_tag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
+    #docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
 }
 push_manifest(){
     local my_alpine_tag=$1

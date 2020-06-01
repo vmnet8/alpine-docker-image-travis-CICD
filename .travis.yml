@@ -28,8 +28,8 @@ before_deploy:
 #- create_manifest "latest" "latest" "3.12"
 deploy:
 - provider: script
-  script: create_manifest "latest" "latest" "3.12.1"
-  #script: push-manifest.sh  "3.12"
+  #script: create_manifest "latest" "latest" "3.12.1"
+  script: ./push-manifest.sh
   on:
     all_branches: true
 #    condition:  compare_sha $alpine_sha $my_alpine_sha  $balena_rpi_sha $my_rpi_sha
