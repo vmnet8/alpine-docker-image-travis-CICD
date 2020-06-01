@@ -49,11 +49,11 @@ compare_sha () {
     
     if [ "$1" != "$2" ] || [ "$3" != "$4" ]; then
         #echo $?
-        true
+        echo "true"
     else
         #echo "no need do nothing"
         #echo $?
-        false
+        echo "false"
     fi
 }
 
@@ -147,8 +147,8 @@ compare_balena() {
     fi
 }
 
-#a=$(compare_sha $1 $2 $3 $4)
-#echo "a is: $a"
+a=$(compare_sha $1 $2 $3 $4)
+echo "a is: $a"
 
 #compare_sha $1 $2 $3 $4
 #compare_alpine $@
