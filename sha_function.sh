@@ -82,13 +82,14 @@ create_manifest(){
     #echo ""
     a=$ALPINE_REPO"@"$alpine_sha
     echo $a
-    docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
-    docker manifest push $MY_ALPINE_REPO:$my_alpine_tag-$timetag
+    #docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
+    docker manifest create $MY_ALPINE_REPO:$my_alpine_tag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
+    #docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
 }
 push_manifest(){
     local my_alpine_tag=$1
     echo "push manifest"
-    docker manifest push $MY_ALPINE_REPO:$my_alpine_tag-$timetag
+    docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
 }
 
 ALPINE_REPO='alpine'
