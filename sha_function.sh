@@ -46,7 +46,6 @@ get_tag_sha(){
 
 
 compare_sha () {
-    
     if [ "$1" != "$2" ] || [ "$3" != "$4" ]; then
         #echo $?
         echo "true"
@@ -89,6 +88,7 @@ create_manifest(){
 }
 push_manifest(){
     local my_alpine_tag=$1
+    export DOCKER_CLI_EXPERIMENTAL=enabled
     echo "push manifest"
     docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
 }
@@ -155,5 +155,5 @@ compare_balena() {
 #get_vmnet_sha $1 $2
 #get_tag_sha $1 $2
 #create_manifest $@
-#push_manifest $1
+push_manifest $1
 #manifest_sha $1 $2 $3 $4

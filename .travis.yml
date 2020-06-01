@@ -25,15 +25,14 @@ script:
 
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 before_deploy:
-#- create_manifest "3.12.0" "latest" "test"
-- create_manifest "latest" "latest" "3.12"
+#- create_manifest "latest" "latest" "3.12"
 deploy:
 - provider: script
-  script: echo "push_manifest"
+  script: create_manifest "latest" "latest" "3.12"
   #script: push-manifest.sh  "3.12"
   on:
     all_branches: true
-    condition:  $(compare_sha $1 $2 $3 $4)
+    condition:  $(compare_sha $alpine_sha $my_alpine_sha  $balena_rpi_sha $my_rpi_sha)
 #    condition:  $(compare_sha $1 $2 $3 $4) = 0
 #    condition: "$result1 = 'will create manifest' " or "$result2 = 'will create manifest' "
 #    condition: "$create_manifest"  ture
