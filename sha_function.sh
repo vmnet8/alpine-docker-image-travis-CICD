@@ -70,10 +70,11 @@ create_manifests(){
 
 
 push_manifest(){
-    local my_alpine_tag=$1
+    #local my_alpine_tag=$1
     export DOCKER_CLI_EXPERIMENTAL=enabled
     echo "push manifest"
-    docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
+    #docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
+    docker manifest push vmnet8/alpine:latest
 }
 
 flag (){
