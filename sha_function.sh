@@ -48,16 +48,16 @@ get_tag_sha(){
 compare_sha () {
     
     if [ "$1" != "$2" ] || [ "$3" != "$4" ]; then
-        create_manifest
+        echo $?
     else
-        echo "no need do nothing"
+        #echo "no need do nothing"
+        echo $?
     fi
 }
 
 manifest_sha () {
     if ! compare_sha "$1" "$2" || ! compare_sha "$3" "$4" ; then
-        #create_manifest
-        echo "create manifest"
+        create_manifest
     else
         echo "no need to create new manifest"
     fi
@@ -134,7 +134,11 @@ compare_balena() {
 #        push_manifest
     fi
 }
-#compare_sha $1 $2
+
+#a=$(compare_sha $1 $2 $3 $4)
+#echo "a is: $a"
+
+#compare_sha $1 $2 $3 $4
 #compare_alpine $@
 #compare_balena $@
 #get_manifest_sha "vmnet8/alpine:$manifest_tag" "$arch"

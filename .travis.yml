@@ -31,7 +31,7 @@ deploy:
   script: push_manifest
   on:
     all_branches: true
-    condition:  $(compare_alpine $1 $2) = 0
+    condition:  $(compare_sha $1 $2 $3 $4) = 0
 #    condition: "$result1 = 'will create manifest' " or "$result2 = 'will create manifest' "
 #    condition: "$create_manifest"  ture
 #deploy:
