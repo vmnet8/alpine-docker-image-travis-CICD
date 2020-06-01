@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -x
+set -x
 
 get_manifest_sha(){
     local sha
@@ -77,17 +77,19 @@ create_manifest(){
     a=$ALPINE_REPO"@"$alpine_sha
     echo $a
     docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
-    docker manifest push $MY_ALPINE_REPO:$my_alpine_tag-$timetag
+#    docker manifest push $MY_ALPINE_REPO:$my_alpine_tag-$timetag
 }
 push_manifest(){
-
+    local my_alpine_tag=$1
     echo "push manifest"
+    docker manifest push $MY_ALPINE_REPO:$my_alpine_tag-$timetag
 }
 
 ALPINE_REPO='alpine'
 MY_ALPINE_REPO='vmnet8/alpine'
 MY_RPI_REPO='vmnet8/alpine-tags'
 BALENA_REPO='balenalib/raspberry-pi-alpine'
+timetag="$(date +%Y%m%d%H%M)"
 
 compare_alpine() {
     local tag=$1
@@ -134,4 +136,5 @@ compare_balena() {
 #get_vmnet_sha $1 $2
 #get_tag_sha $1 $2
 #create_manifest $@
+#push_manifest $1
 #manifest_sha $1 $2 $3 $4
