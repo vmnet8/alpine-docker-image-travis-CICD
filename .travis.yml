@@ -28,7 +28,7 @@ before_deploy:
 deploy:
 - provider: script
  # script: echo "push_manifest"
-  script: push_manifest "3.12"
+  script: push-manifest.sh  "3.12"
   on:
     all_branches: true
 #    condition:  $(compare_sha $1 $2 $3 $4) = 0
