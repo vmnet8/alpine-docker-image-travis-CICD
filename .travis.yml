@@ -15,7 +15,7 @@ script:
 - echo $my_alpine_sha
 - balena_rpi_sha=$(get_tag_sha "balenalib/raspberry-pi-alpine" "latest" )
 - echo $balena_rpi_sha
-- my_rpi_sha=$(get_tag_sha "vmnet8/alpine-tags")
+- my_rpi_sha=$(get_tag_sha "vmnet8/alpine-tags" "rpi-3.11")
 - echo $my_rpi_sha
 - compare_alpine "latest" "amd64"
 - compare_balena "latest" "rpi-3.11"
