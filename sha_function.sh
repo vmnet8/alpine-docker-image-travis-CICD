@@ -84,7 +84,7 @@ create_manifest(){
     #echo $a
     #docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
     docker manifest create $MY_ALPINE_REPO:$my_alpine_tag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
-    #docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
+    docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
 }
 push_manifest(){
     local my_alpine_tag=$1
@@ -155,5 +155,5 @@ compare_balena() {
 #get_vmnet_sha $1 $2
 #get_tag_sha $1 $2
 #create_manifest $@
-push_manifest $1
+#push_manifest $1
 #manifest_sha $1 $2 $3 $4

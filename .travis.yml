@@ -28,15 +28,15 @@ before_deploy:
 #- create_manifest "latest" "latest" "3.12"
 deploy:
 - provider: script
-  script: create_manifest "latest" "latest" "3.12"
+  script: create_manifest "latest" "latest" "3.12.1"
   #script: push-manifest.sh  "3.12"
   on:
     all_branches: true
-    condition:  compare_sha $alpine_sha $my_alpine_sha  $balena_rpi_sha $my_rpi_sha
+#    condition:  compare_sha $alpine_sha $my_alpine_sha  $balena_rpi_sha $my_rpi_sha
 #    condition:  $(compare_sha $1 $2 $3 $4) = 0
 #    condition: "$result1 = 'will create manifest' " or "$result2 = 'will create manifest' "
 #    condition: "$create_manifest"  ture
-#    condition: $flag
+    condition: $flag
 #deploy:
 #- provider: script
 #  script: docker manifest push vmnet8/alpine:$dockertag
