@@ -48,10 +48,12 @@ get_tag_sha(){
 compare_sha () {
     
     if [ "$1" != "$2" ] || [ "$3" != "$4" ]; then
-        echo $?
+        #echo $?
+        true
     else
         #echo "no need do nothing"
-        echo $?
+        #echo $?
+        false
     fi
 }
 
@@ -90,6 +92,15 @@ push_manifest(){
     local my_alpine_tag=$1
     echo "push manifest"
     docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
+}
+
+flag (){
+    flag=$(compare_sha $1 $2 $3 $4)
+    if [ $flag -eq 0 ]; then
+        return
+    fi
+
+
 }
 
 ALPINE_REPO='alpine'
