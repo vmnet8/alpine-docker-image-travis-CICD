@@ -71,8 +71,8 @@ create_manifest(){
     local balena_tag=$2
     local my_alpine_tag=$3
     alpine_sha=$(get_manifest_sha $ALPINE_REPO $1 "amd64")
-    echo $alpine_sha
-    timetag="$(date +%Y%m%d%H%M)"
+#    echo $alpine_sha
+ #   timetag="$(date +%Y%m%d%H%M)"
     docker pull $ALPINE_REPO:$alpine_tag
     docker pull $BALENA_REPO:$balena_tag
     #docker tag $ALPINE_REPO:$tag  $MY_RPI_REPO:"x86"-$alpine_tag
@@ -81,9 +81,8 @@ create_manifest(){
     #docker push $MY_RPI_REPO:"rpi"-$balena_tag
     #docker push vmnet8/alpine-tags:$arch-$my_tag-$timetag
     echo "create new manifest"
-    #echo ""
     a=$ALPINE_REPO"@"$alpine_sha
-    echo $a
+    #echo $a
     #docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
     docker manifest create $MY_ALPINE_REPO:$my_alpine_tag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
     #docker manifest push $MY_ALPINE_REPO:$my_alpine_tag
@@ -99,8 +98,6 @@ flag (){
     if [ $flag -eq 0 ]; then
         return
     fi
-
-
 }
 
 ALPINE_REPO='alpine'
@@ -147,8 +144,8 @@ compare_balena() {
     fi
 }
 
-a=$(compare_sha $1 $2 $3 $4)
-echo "a is: $a"
+#a=$(compare_sha $1 $2 $3 $4)
+#echo "a is: $a"
 
 #compare_sha $1 $2 $3 $4
 #compare_alpine $@
