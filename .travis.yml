@@ -24,7 +24,7 @@ before_deploy:
 - create_manifests vmnet8/alpine 3.12-$(date +%Y%m%d%H%M) "alpine@"$alpine_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
 deploy:
 - provider: script
-  script: docker manifest inspect  vmnet8/alpine:latest; push_manifest
+  script: docker manifest inspect  vmnet8/alpine:latest; docker manifest push vmnet8/alpine:latest
 #  script: ./push-manifest.sh
   on:
     all_branches: true
