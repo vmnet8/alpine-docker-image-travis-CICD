@@ -64,6 +64,7 @@ create_manifests(){
     docker manifest create $repo:$tag $x86 $rpi
     docker manifest create $repo:latest $x86 $rpi
     docker manifest annotate $repo:latest $rpi --arch arm
+    docker manifest annotate $repo:$tag $rpi --arch arm
 }
 
 #    docker manifest create $MY_ALPINE_REPO:$my_alpine_tag-$timetag $ALPINE_REPO"@"$alpine_sha $BALENA_REPO:$balena_tag
