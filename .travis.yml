@@ -20,11 +20,14 @@ before_deploy:
 - echo $tag
 - create_manifests vmnet8/alpine $tag  "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
 #- create_manifests vmnet8/alpine 3.12-$(date +%Y%m%d%H%M) "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
-- docker manifest inspect  vmnet8/alpine:latest
-- docker manifest inspect  vmnet8/alpine:$tag
+- docker manifest inspect vmnet8/alpine:latest
+- docker manifest inspect vmnet8/alpine:$tag
 deploy:
 - provider: script
-  script: docker manifest push vmnet8/alpine:latest; docker manifest push vmnet8/alpine:$tag
+  #script: docker manifest push vmnet8/alpine:latest; docker manifest push vmnet8/alpine:$tag
+  script:
+  - docker manifest push vmnet8/alpine:latest
+  - docker manifest push vmnet8/alpine:$tag
   on:
     all_branches: true
     condition: $flag
