@@ -24,7 +24,7 @@ before_deploy:
 - docker manifest inspect  vmnet8/alpine:$tag
 deploy:
 - provider: script
-  script: docker manifest push vmnet8/alpine:latest
+  script: docker manifest push vmnet8/alpine:latest; docker manifest push vmnet8/alpine:$tag
   on:
     all_branches: true
     condition: $flag
