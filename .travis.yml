@@ -16,12 +16,15 @@ script:
 - flag=$(compare_sha  "$alpine_x86_sha" "my_alpine_x86_sha" "balena_rpi_sha" "my_rpi_sha")
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 before_deploy:
-- create_manifests vmnet8/alpine 3.12-$(date +%Y%m%d%H%M) "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
+- tag="3.12-$(date +%Y%m%d%H%M)"
+- echo $tag
+- create_manifests vmnet8/alpine $tag  "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
+#- create_manifests vmnet8/alpine 3.12-$(date +%Y%m%d%H%M) "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
 - docker manifest inspect  vmnet8/alpine:latest
+- docker manifest inspect  vmnet8/alpine:$tag
 deploy:
 - provider: script
   script: docker manifest push vmnet8/alpine:latest
-#  script: ./push-manifest.sh
   on:
     all_branches: true
     condition: $flag
