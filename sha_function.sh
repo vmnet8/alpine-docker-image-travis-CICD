@@ -1,5 +1,5 @@
 #!/bin/bash
-#get_manifest_sha function can get alpine sha of archtecture of armv6 armv7 armv8
+# get_manifest_sha function is going to get alpine docker image's sha of all kinds of archtecture: amd65 armv6 armv7 armv8 386 etc
 get_manifest_sha(){
     local sha
     docker_repo=$1  #alpine or vmnet/alpine
@@ -30,7 +30,26 @@ get_manifest_sha(){
         i=$i+1
     done < "$2".txt
 }
+# get_my_manifest_sha is going to get vmnet8/alpine docker image's sha, only two archectures: amd64 and arm
+get_my_manifest_sha (){
+    local repo=$1
+    local arch=$2
+    docker pull -q $1 &>/dev/null
+    docker manifest inspect $1 > "$2".txt
+    sha=""
+    i=0
+    while [ "$sha" == "" ] && read -r line
+    do
+        archecture=$(jq .manifests[$i].platform.architecture "$2".txt |sed -e 's/^"//' -e 's/"$//')
+        if [ "$archecture" = "$2" ];then
+            sha=$(jq .manifests[$i].digest "$2".txt  |sed -e 's/^"//' -e 's/"$//')
+            echo ${sha}
+        fi
+        i=$i+1
+    done < "$2".txt
 
+}
+# get_tag_sha function is going to get balenalib:raspberry-pi-alpine image's sha.
 get_tag_sha(){
     local repo=$1    # not manifest docker image
     local tag=$2
