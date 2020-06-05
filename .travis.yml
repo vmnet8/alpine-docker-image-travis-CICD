@@ -17,19 +17,20 @@ script:
 - echo $balena_rpi_sha
 - my_rpi_sha=$(get_my_manifest_sha "vmnet8/alpine:latest" "arm")
 - echo $my_rpi_sha
-- flag=$(compare_sha  "$alpine_x86_sha" "my_alpine_x86_sha" "balena_rpi_sha" "my_rpi_sha")
+- flag=$(compare_sha  "$alpine_x86_sha" "$my_alpine_x86_sha" "$balena_rpi_sha" "$my_rpi_sha")
 - echo $flag
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 before_deploy:
 - tag="3.12-$(date +%Y%m%d%H%M)"
+- tag2="latest"
 - echo $tag
-- create_manifests vmnet8/alpine $tag  "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
+- create_manifests vmnet8/alpine $tag $tag2 "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
 #- create_manifests vmnet8/alpine latest  "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
 - docker manifest inspect vmnet8/alpine:latest
 - docker manifest inspect vmnet8/alpine:$tag
 deploy:
 - provider: script
-  script: docker manifest push vmnet8/alpine:latest; docker manifest push vmnet8/alpine:$tag
+  script: docker manifest push vmnet8/alpine:$tag2; docker manifest push vmnet8/alpine:$tag
   skip_cleanup: true
   on:
     all_branches: true

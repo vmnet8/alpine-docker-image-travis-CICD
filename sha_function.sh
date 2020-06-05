@@ -69,10 +69,11 @@ compare_sha () {
 create_manifests(){
     local repo=$1
     local tag=$2
-    local x86=$3
-    local rpi=$4
+    local tag2=$3
+    local x86=$4
+    local rpi=$5
     docker manifest create $repo:$tag $x86 $rpi
-    docker manifest create $repo:latest $x86 $rpi
-    docker manifest annotate $repo:latest $rpi --arch arm
+    docker manifest create $repo:$tag2 $x86 $rpi
     docker manifest annotate $repo:$tag $rpi --arch arm
+    docker manifest annotate $repo:$tag2 $rpi --arch arm
 }
