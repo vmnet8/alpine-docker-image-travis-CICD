@@ -24,6 +24,7 @@ before_deploy:
 - tag="3.12-$(date +%Y%m%d%H%M)"
 - echo $tag
 - create_manifests vmnet8/alpine $tag  "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
+#- create_manifests vmnet8/alpine latest  "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
 - docker manifest inspect vmnet8/alpine:latest
 - docker manifest inspect vmnet8/alpine:$tag
 deploy:
