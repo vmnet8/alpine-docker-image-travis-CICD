@@ -25,12 +25,11 @@ before_deploy:
 - tag2="latest"
 - echo $tag
 - create_manifests vmnet8/alpine $tag $tag2 "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
-#- create_manifests vmnet8/alpine latest  "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha
-- docker manifest inspect vmnet8/alpine:latest
 - docker manifest inspect vmnet8/alpine:$tag
+- docker manifest inspect vmnet8/alpine:$tag2
 deploy:
 - provider: script
-  script: docker manifest push vmnet8/alpine:$tag2; docker manifest push vmnet8/alpine:$tag
+  script: docker manifest push vmnet8/alpine:$tag; docker manifest push vmnet8/alpine:$tag2
   skip_cleanup: true
   on:
     all_branches: true
