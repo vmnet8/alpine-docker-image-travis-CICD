@@ -20,7 +20,7 @@ script:
 - flag=$(compare_sha  "$alpine_x86_sha" "$my_alpine_x86_sha" "$balena_rpi_sha" "$my_rpi_sha")
 - echo $flag
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-before_deploy:
+#before_deploy:
 - tag="3.12-$(date +%Y%m%d%H%M)"
 - tag2="latest"
 - echo $tag
