@@ -76,7 +76,7 @@ create_manifests(){
     docker manifest create $repo:$tag $x86 $rpi $arm64    # there are three archtecture in this manifest repo
     docker manifest create $repo:$tag2 $x86 $rpi $arm64
     docker manifest annotate $repo:$tag $rpi --arch arm
-    docker manifest annotate $repo:$tag2 $arm64 --arch arm64/v8
-    docker manifest annotate $repo:$tag $arm64 --arch arm64/v8
+    docker manifest annotate $repo:$tag2 $arm64 --arch arm64
+    docker manifest annotate $repo:$tag $arm64 --arch arm64
     docker manifest annotate $repo:$tag2 $rpi --arch arm
 }
