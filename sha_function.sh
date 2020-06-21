@@ -1,5 +1,5 @@
 #!/bin/bash
-# get_manifest_sha function is going to get alpine docker image's sha of all kinds of archtecture: amd65 armv6 armv7 armv8 386 etc
+# get_manifest_sha function is going to get alpine docker image's sha of all kinds of archtecture: amd64 armv6 armv7 armv8 386 etc
 get_manifest_sha(){
     local sha
     docker_repo=$1  #alpine or vmnet/alpine
@@ -59,7 +59,7 @@ get_tag_sha(){
 }
 
 compare_sha () {
-    if [ "$1" != "$2" ] || [ "$3" != "$4" ]; then
+    if [ "$1" != "$2" ] || [ "$3" != "$4" ] || [ "$5" != "$6" ]; then
         echo "true"
     else
         echo "false"
@@ -72,8 +72,11 @@ create_manifests(){
     local tag2=$3
     local x86=$4
     local rpi=$5
-    docker manifest create $repo:$tag $x86 $rpi
-    docker manifest create $repo:$tag2 $x86 $rpi
+    local arm64=$6
+    docker manifest create $repo:$tag $x86 $rpi $arm64
+    docker manifest create $repo:$tag2 $x86 $rpi $arm64
     docker manifest annotate $repo:$tag $rpi --arch arm
+    docker manifest annotate $repo:$tag2 $arm64 --arch arm64
+    docker manifest annotate $repo:$tag $arm64 --arch arm64
     docker manifest annotate $repo:$tag2 $rpi --arch arm
 }
