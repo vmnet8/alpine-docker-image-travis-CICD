@@ -1,4 +1,4 @@
-name: alpine docker image build
+name: alpine-docker-image-build
 
 # Run this workflow every time a new commit pushed to your repository
 on: push
@@ -11,7 +11,7 @@ jobs:
   # Set the job key. The key is displayed as the job name
   # when a job name is not provided
   #super-lint:
-  alpine docker image build:
+  alpine-docker-image-build:
     # Name the Job
     #name: Lint code base
     name: apt 
