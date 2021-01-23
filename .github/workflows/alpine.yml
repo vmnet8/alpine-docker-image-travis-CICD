@@ -8,15 +8,8 @@ on: push
 #    inputs:
 
 jobs:
-  # Set the job key. The key is displayed as the job name
-  # when a job name is not provided
-  #super-lint:
   alpine-docker-image-build:
-    # Name the Job
-    #name: Lint code base
-    name: apt
     # Set the type of machine to run on
-    #runs-on: ubuntu-latest
     runs-on: ubuntu-20.04
 
     steps:
@@ -24,14 +17,35 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Runs the Super-Linter action
- #     - name: Run Super-Linter
-   #     uses: github/super-linter@v3
-    #    env:
-     #     DEFAULT_BRANCH: master
-  #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: docker experimental
         run: export DOCKER_CLI_EXPERIMENTAL=enabled
       - name: docker login
         run: docker login -u ${{ secrets.DOCKERUSERNAME }} -p ${{ secrets.DOCKERAPIKEY }}
-
+      - name: check alpines
+        run: |
+          source sha_function.sh
+          alpine_x86_sha=$(get_manifest_sha  "alpine" "latest" "amd64")
+          echo $alpine_x86_sha
+          alpine_arm64_sha=$(get_manifest_sha  "alpine" "latest" "arm64")
+          echo $alpine_arm64_sha
+          my_alpine_x86_sha=$(get_vmnet8_manifest_sha  "vmnet8/alpine:latest" "amd64")
+          echo $my_alpine_x86_sha
+          my_alpine_arm64_sha=$(get_vmnet8_manifest_sha  "vmnet8/alpine:latest" "arm64")
+          echo $my_alpine_arm64_sha
+          balena_rpi_sha=$(get_tag_sha "balenalib/raspberry-pi-alpine" "latest" )
+          echo $balena_rpi_sha
+          my_rpi_sha=$(get_vmnet8_manifest_sha "vmnet8/alpine:latest" "arm")
+          echo $my_rpi_sha
+          flag=$(compare_sha  "$alpine_x86_sha" "$my_alpine_x86_sha" "$balena_rpi_sha" "$my_rpi_sha" "$alpine_arm64_sha" "$my_alpine_arm64_sha")
+          echo $flag
+      - name: create manifest
+        run: |
+          tag="3.12-$(date +%Y%m%d%H%M)"
+          tag2="latest"
+          echo $tag
+          create_manifests vmnet8/alpine $tag $tag2 "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha "alpine@"$alpine_arm64_sha
+          docker manifest inspect vmnet8/alpine:$tag
+          docker manifest inspect vmnet8/alpine:$tag2
+       - name: push manifest
+         run: docker manifest push vmnet8/alpine:$tag; docker manifest push vmnet8/alpine:$tag2
+         #condition: $flag = true
