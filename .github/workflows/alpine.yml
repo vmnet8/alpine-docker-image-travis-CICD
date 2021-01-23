@@ -44,8 +44,8 @@ jobs:
           tag2="latest"
           echo $tag
           create_manifests vmnet8/alpine $tag $tag2 "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha "alpine@"$alpine_arm64_sha
-          docker manifest inspect vmnet8/alpine:$tag
-          docker manifest inspect vmnet8/alpine:$tag2
+          #docker manifest inspect vmnet8/alpine:$tag
+          #docker manifest inspect vmnet8/alpine:$tag2
        - name: push manifest
          run: docker manifest push vmnet8/alpine:$tag; docker manifest push vmnet8/alpine:$tag2
          #condition: $flag = true
