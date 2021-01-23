@@ -73,10 +73,17 @@ create_manifests(){
     local x86=$4
     local rpi=$5
     local arm64=$6
+    echo 1
     docker manifest create $repo:$tag $x86 $rpi $arm64    # there are three archtecture in this manifest repo
+    echo 2
     docker manifest create $repo:$tag2 $x86 $rpi $arm64
+    echo 3
     docker manifest annotate $repo:$tag $rpi --arch arm
+    echo 4
     docker manifest annotate $repo:$tag2 $arm64 --arch arm64
+    echo 5
     docker manifest annotate $repo:$tag $arm64 --arch arm64
+    echo 6
     docker manifest annotate $repo:$tag2 $rpi --arch arm
+    echo 7
 }
