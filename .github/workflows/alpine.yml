@@ -30,11 +30,6 @@ jobs:
     #    env:
      #     DEFAULT_BRANCH: master
   #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: update
-        run: sudo apt update
-      - name: install docker-ce
-        #run: sudo apt install docker-ce
-        run: sudo apt install moby-engine moby-cli
       - name: docker experimental
         run: export DOCKER_CLI_EXPERIMENTAL=enabled
       - name: docker login
