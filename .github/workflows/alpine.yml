@@ -41,6 +41,7 @@ jobs:
       - name: create manifest
         run: |
           tag="3.12-$(date +%Y%m%d%H%M)"
+          echo $flag
           tag2="latest"
           echo $tag
           source sha_function.sh
