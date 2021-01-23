@@ -1,12 +1,13 @@
 name: alpine-docker-image-build
 
-# Run this workflow every time a new commit pushed to your repository
-on: push
-
 #on:
 #  workflow_dispatch:
 #    inputs:
 
+#on: push
+on:
+  schedule:
+    - cron: "0 8 * * *"
 jobs:
   alpine-docker-image-build:
     # Set the type of machine to run on
