@@ -19,7 +19,7 @@ jobs:
 
       - name: docker login
         run: docker login -u ${{ secrets.DOCKERUSERNAME }} -p ${{ secrets.DOCKERAPIKEY }}
-      - name: alpines
+      - name: treehouses alpine
         run: |
           export DOCKER_CLI_EXPERIMENTAL=enabled
           source sha_function.sh
@@ -43,5 +43,7 @@ jobs:
           create_manifests vmnet8/alpine $tag $tag2 "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha "alpine@"$alpine_arm64_sha
           docker manifest inspect vmnet8/alpine:$tag
           docker manifest inspect vmnet8/alpine:$tag2
-          docker manifest push vmnet8/alpine:$tag; docker manifest push vmnet8/alpine:$tag2
+          if [[ $flag == true ]]; then
+            docker manifest push vmnet8/alpine:$tag; docker manifest push vmnet8/alpine:$tag2
+          fi
       #   #condition: $flag = true
