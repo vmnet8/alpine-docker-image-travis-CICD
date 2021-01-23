@@ -1,0 +1,40 @@
+name: alpine docker image build
+
+# Run this workflow every time a new commit pushed to your repository
+on: push
+
+#on:
+#  workflow_dispatch:
+#    inputs:
+
+jobs:
+  # Set the job key. The key is displayed as the job name
+  # when a job name is not provided
+  #super-lint:
+  alpine docker image build:
+    # Name the Job
+    #name: Lint code base
+    name: apt 
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Runs the Super-Linter action
+ #     - name: Run Super-Linter
+   #     uses: github/super-linter@v3
+    #    env:
+     #     DEFAULT_BRANCH: master
+  #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: update
+        run: apt update
+      - name: install docker-ce
+        run: apt install docker-ce
+      - name: docker experimental
+        run: export DOCKER_CLI_EXPERIMENTAL=enabled
+      - name: docker login
+        run: docker login -u ${{ secrets.DOCKERUSERNAME }} -p ${{ secrets.DOCKERAPIKEY }}
+
