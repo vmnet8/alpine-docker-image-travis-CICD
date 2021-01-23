@@ -45,5 +45,6 @@ jobs:
           docker manifest inspect vmnet8/alpine:$tag2
           if [[ $flag == true ]]; then
             docker manifest push vmnet8/alpine:$tag; docker manifest push vmnet8/alpine:$tag2
+          else
+            echo "no changes"
           fi
-      #   #condition: $flag = true
