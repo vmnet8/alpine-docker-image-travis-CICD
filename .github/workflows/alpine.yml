@@ -17,12 +17,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: docker experimental
-        run: export DOCKER_CLI_EXPERIMENTAL=enabled
       - name: docker login
         run: docker login -u ${{ secrets.DOCKERUSERNAME }} -p ${{ secrets.DOCKERAPIKEY }}
       - name: check alpines
         run: |
+          export DOCKER_CLI_EXPERIMENTAL=enabled
           source sha_function.sh
           alpine_x86_sha=$(get_manifest_sha  "alpine" "latest" "amd64")
           echo $alpine_x86_sha
@@ -41,8 +40,6 @@ jobs:
           tag="3.12-$(date +%Y%m%d%H%M)"
           tag2="latest"
           echo $tag
-          source sha_function.sh
-          export DOCKER_CLI_EXPERIMENTAL=enabled
           create_manifests vmnet8/alpine $tag $tag2 "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha "alpine@"$alpine_arm64_sha
           docker manifest inspect vmnet8/alpine:$tag
           docker manifest inspect vmnet8/alpine:$tag2
