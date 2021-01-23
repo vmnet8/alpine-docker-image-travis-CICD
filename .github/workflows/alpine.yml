@@ -38,11 +38,11 @@ jobs:
           echo $my_rpi_sha
           flag=$(compare_sha  "$alpine_x86_sha" "$my_alpine_x86_sha" "$balena_rpi_sha" "$my_rpi_sha" "$alpine_arm64_sha" "$my_alpine_arm64_sha")
           echo $flag
-      #- name: create manifest
-      #  run: |
-      #    tag="3.12-$(date +%Y%m%d%H%M)"
-      #    tag2="latest"
-      #    echo $tag
+      - name: create manifest
+        run: |
+          tag="3.12-$(date +%Y%m%d%H%M)"
+          tag2="latest"
+          echo $tag
       #    create_manifests vmnet8/alpine $tag $tag2 "alpine@"$alpine_x86_sha "balenalib/raspberry-pi-alpine@"$balena_rpi_sha "alpine@"$alpine_arm64_sha
       #    #docker manifest inspect vmnet8/alpine:$tag
       #    #docker manifest inspect vmnet8/alpine:$tag2
